@@ -1,8 +1,15 @@
+"use client";
+
 import { Navbar } from "@/components/Navbar";
 import { TodoProvider } from "@/context/todo-context";
 import { TodoList } from "@/components/TodoList";
+import WelcomeScreen from "@/components/WelcomeScreen";
+import { useUser } from "@/context/user-context";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
+  const { isFirstVisit } = useUser();
+
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -11,13 +18,27 @@ export default function Home() {
       </div>
       
       <TodoProvider>
-        <Navbar />
-        <div className="container relative mx-auto flex flex-col items-center px-4 py-10">
-          <h2 className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-blue-400 dark:to-indigo-400 sm:text-4xl">
-            Manage your tasks with ease
-          </h2>
-          <TodoList />
-        </div>
+        <AnimatePresence mode="wait">
+          {isFirstVisit ? (
+            <WelcomeScreen />
+          ) : (
+            <motion.div
+              key="app-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Navbar />
+              <div className="container relative mx-auto flex flex-col items-center px-4 py-10">
+                <h2 className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-blue-400 dark:to-indigo-400 sm:text-4xl">
+                  Manage your tasks with ease
+                </h2>
+                <TodoList />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </TodoProvider>
     </main>
   );
