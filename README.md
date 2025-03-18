@@ -2,7 +2,18 @@
 
 A modern, feature-rich todo application built with Next.js, Tailwind CSS, and TypeScript.
 
-![Toodoo App Screenshot](public/screenshots/toodoo-preview.png)
+## Screenshots
+
+<div align="center">
+  <img src="/public/screenshots/toodoo-light-mode.png" alt="Toodoo App Light Mode" width="600" />
+  <p><em>Toodoo in Light Mode</em></p>
+  
+  <img src="/public/screenshots/toodoo-dark-mode.png" alt="Toodoo App Dark Mode" width="600" />
+  <p><em>Toodoo in Dark Mode</em></p>
+  
+  <img src="/public/screenshots/toodoo-categories.png" alt="Toodoo Task Categories" width="600" />
+  <p><em>Task Categories</em></p>
+</div>
 
 ## Features
 
