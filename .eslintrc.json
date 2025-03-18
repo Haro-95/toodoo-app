@@ -1,0 +1,9 @@
+{
+  "extends": "next",
+  "rules": {
+    "@typescript-eslint/prefer-as-const": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "react/no-unescaped-entities": "warn"
+  }
+} 
