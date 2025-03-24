@@ -24,7 +24,7 @@ export const ThemeToggle = () => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => setTheme(nextMode)}
-      className="flex items-center justify-center rounded-full bg-gray-100 p-2 text-gray-700 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+      className="flex items-center justify-center rounded-full bg-gray-100 p-2 text-gray-700 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
       aria-label={`Switch to ${nextMode} mode, currently ${currentMode} mode`}
       aria-pressed={theme === "dark"}
       tabIndex={0}

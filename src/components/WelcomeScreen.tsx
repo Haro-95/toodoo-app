@@ -74,7 +74,7 @@ const WelcomeScreen: React.FC = () => {
                       setError('');
                     }}
                     placeholder="Enter your name"
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     autoFocus
                   />
                   {error && (
@@ -86,7 +86,7 @@ const WelcomeScreen: React.FC = () => {
                   type="submit"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center w-full px-6 py-3 font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="flex items-center justify-center w-full px-6 py-3 font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg hover:from-blue-600 hover:to-indigo-700"
                 >
                   Continue
                   <FiArrowRight className="ml-2" />
@@ -127,7 +127,7 @@ const WelcomeScreen: React.FC = () => {
                 onClick={handleContinue}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center justify-center w-full px-6 py-3 font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="flex items-center justify-center w-full px-6 py-3 font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg hover:from-blue-600 hover:to-indigo-700"
               >
                 Get Started
                 <FiArrowRight className="ml-2" />

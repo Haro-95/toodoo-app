@@ -180,12 +180,12 @@ export const TodoList = () => {
                 value={newTodo}
                 onChange={handleInputChange}
                 placeholder="Add a new task..."
-                className={`w-full rounded-lg border bg-white/90 px-4 py-3 text-sm shadow-inner transition-all focus:outline-none focus:ring-2 dark:bg-gray-700/90 dark:text-white dark:placeholder-gray-400 ${
+                className={`w-full rounded-lg border bg-white/90 px-4 py-3 text-sm shadow-inner transition-all dark:bg-gray-700/90 dark:text-white dark:placeholder-gray-400 ${
                   isAtLimit
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-300 dark:focus:ring-red-500"
+                    ? "border-red-500 dark:border-red-500"
                     : isNearLimit
-                    ? "border-yellow-500 focus:border-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-500"
-                    : "border-gray-300 focus:border-blue-500 focus:ring-blue-300 dark:border-gray-600 dark:focus:ring-blue-500"
+                    ? "border-yellow-500 dark:border-yellow-500"
+                    : "border-gray-300 dark:border-gray-600"
                 }`}
                 aria-label="New todo input"
                 maxLength={MAX_TODO_LENGTH}
@@ -215,7 +215,7 @@ export const TodoList = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className={`flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 ${
+                className={`flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg shadow-md transition-all ${
                   isListening 
                     ? "animate-pulse bg-gradient-to-r from-red-500 to-red-600 text-white" 
                     : "bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600"
@@ -238,7 +238,7 @@ export const TodoList = () => {
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex-shrink-0 flex h-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 px-3 text-sm font-medium text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="flex-shrink-0 flex h-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 px-3 text-sm font-medium text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600"
               aria-label="Toggle category selection"
               aria-expanded={isAddingCategory}
               tabIndex={0}
@@ -256,7 +256,7 @@ export const TodoList = () => {
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 p-2 text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:focus:ring-offset-gray-800"
+              className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 p-2 text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600 disabled:opacity-50"
               aria-label="Add todo"
               tabIndex={0}
             >
@@ -314,7 +314,7 @@ export const TodoList = () => {
                       }}
                       whileHover={{ scale: 1.08 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`rounded-full px-3 py-1 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 ${
+                      className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
                         newTodoCategory === category
                           ? category === 'none'
                             ? 'bg-gray-200 text-gray-600 ring-2 ring-gray-400 dark:bg-gray-700 dark:text-gray-300 dark:ring-gray-500'
@@ -366,7 +366,7 @@ export const TodoList = () => {
                 stiffness: 300, 
                 damping: 24
               }}
-              className={`rounded-md px-4 py-1.5 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 ${
+              className={`rounded-md px-4 py-1.5 text-sm font-medium transition-all ${
                 filter === filterType
                   ? "bg-white text-gray-800 shadow dark:bg-gray-600 dark:text-white"
                   : "text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
@@ -423,7 +423,7 @@ export const TodoList = () => {
                   color: "#4B5563" 
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="rounded-md bg-gray-100 px-3 py-1 text-xs text-gray-500 transition-all hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                className="rounded-md bg-gray-100 px-3 py-1 text-xs text-gray-500 transition-all hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-gray-300"
                 aria-label="Clear all completed todos"
                 tabIndex={0}
               >

@@ -52,7 +52,7 @@ export const CategoryBadge = ({ category, onClick }: CategoryBadgeProps) => {
         onClick();
       }
     },
-    className: `inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text} cursor-pointer ${colors.hover} focus:outline-none focus:ring-2 ${colors.ring} focus:ring-offset-2 dark:focus:ring-offset-gray-800`
+    className: `inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text} cursor-pointer ${colors.hover}`
   } : {
     className: `inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`
   };
@@ -103,7 +103,7 @@ export const CategorySelector = ({ currentCategory, onChange }: CategorySelector
             }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800 ${
+            className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
               isSelected
                 ? `${colors.bg} ${colors.text} ring-2 ${colors.ring}`
                 : `${colors.bg} ${colors.text}`

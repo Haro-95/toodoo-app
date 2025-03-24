@@ -97,7 +97,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               todo.completed
                 ? "border-green-500 bg-gradient-to-br from-green-400 to-green-500 text-white shadow-sm"
                 : "border-gray-300 bg-white hover:border-blue-400 hover:bg-blue-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-400 dark:hover:bg-blue-900/30"
-            } focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800`}
+            }`}
             aria-label={todo.completed ? "Mark as incomplete" : "Mark as complete"}
             tabIndex={0}
           >
@@ -128,7 +128,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
                 onChange={handleInputChange}
                 onBlur={handleSave}
                 onKeyDown={handleKeyDown}
-                className={`w-full rounded-md bg-transparent py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500 dark:text-white ${
+                className={`w-full rounded-md bg-transparent py-1 dark:text-white ${
                   isAtLimit ? "border-red-500 text-red-600" : isNearLimit ? "text-yellow-600" : ""
                 }`}
                 autoFocus
@@ -180,7 +180,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: 10 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
               aria-label="Cancel category selection"
               tabIndex={0}
             >
@@ -196,7 +196,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
               aria-label="Change category"
               tabIndex={0}
             >
@@ -216,7 +216,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-green-500 hover:bg-green-50 hover:text-green-600 dark:text-green-400 dark:hover:bg-green-900/30 dark:hover:text-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="rounded-full p-1.5 text-green-500 hover:bg-green-50 hover:text-green-600 dark:text-green-400 dark:hover:bg-green-900/30 dark:hover:text-green-300"
               aria-label="Save edit"
               tabIndex={0}
             >
@@ -232,7 +232,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-blue-50 hover:text-blue-500 dark:text-gray-400 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              className="rounded-full p-1.5 text-gray-500 hover:bg-blue-50 hover:text-blue-500 dark:text-gray-400 dark:hover:bg-blue-900/30 dark:hover:text-blue-400"
               aria-label="Edit todo"
               tabIndex={0}
             >
@@ -246,7 +246,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          className="rounded-full p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-500 dark:text-gray-400 dark:hover:bg-red-900/30 dark:hover:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+          className="rounded-full p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-500 dark:text-gray-400 dark:hover:bg-red-900/30 dark:hover:text-red-400"
           aria-label="Delete todo"
           tabIndex={0}
         >
