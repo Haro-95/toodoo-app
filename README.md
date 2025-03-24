@@ -5,6 +5,9 @@ A modern, feature-rich todo application built with Next.js, Tailwind CSS, and Ty
 ## Screenshots
 
 <div align="center">
+  <img src="/public/screenshots/toodoo-welcome-screen.png" alt="Toodoo Welcome Screen" width="600" />
+  <p><em>Personalized Welcome Experience</em></p>
+
   <img src="/public/screenshots/toodoo-light-mode.png" alt="Toodoo App Light Mode" width="600" />
   <p><em>Toodoo in Light Mode</em></p>
   
@@ -17,6 +20,7 @@ A modern, feature-rich todo application built with Next.js, Tailwind CSS, and Ty
 
 ## Features
 
+- **Welcome Screen** - Personalized user onboarding experience
 - **Clean, Modern UI** with dark/light mode support
 - **Task Management** - Add, edit, delete, and mark tasks as complete
 - **Task Categories** - Organize tasks with color-coded categories (Work, Personal, Urgent)
@@ -32,7 +36,7 @@ A modern, feature-rich todo application built with Next.js, Tailwind CSS, and Ty
 - **TypeScript** - Type safety for better development experience
 - **Tailwind CSS** - Utility-first CSS framework
 - **Framer Motion** - Animation library for React
-- **React Context API** - For state management
+- **React Context API** - For state management (Todo and User contexts)
 - **LocalStorage API** - For persistent data storage
 
 ## Getting Started
@@ -70,7 +74,7 @@ toodoo/
 ├── src/
 │   ├── app/         # Next.js app router
 │   ├── components/  # React components
-│   ├── context/     # React context providers
+│   ├── context/     # React context providers (todo-context.tsx, user-context.tsx)
 │   ├── hooks/       # Custom React hooks
 │   ├── styles/      # Global styles
 │   ├── types/       # TypeScript type definitions
