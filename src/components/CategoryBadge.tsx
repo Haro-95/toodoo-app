@@ -2,6 +2,7 @@
 
 import { ComponentProps } from "react";
 import { TodoCategory } from "@/types";
+import { motion } from "framer-motion";
 
 type CategoryBadgeProps = {
   category: TodoCategory;
@@ -74,7 +75,7 @@ type CategorySelectorProps = {
 export const CategorySelector = ({ currentCategory, onChange }: CategorySelectorProps) => {
   return (
     <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Select category">
-      {(['none', 'work', 'personal', 'urgent'] as TodoCategory[]).map((category) => {
+      {(['none', 'work', 'personal', 'urgent'] as TodoCategory[]).map((category, index) => {
         const isSelected = currentCategory === category;
         const colors = categoryColors[category];
         const categoryDisplay = category === 'none' ? 'No Category' : category.charAt(0).toUpperCase() + category.slice(1);
@@ -90,10 +91,8 @@ export const CategorySelector = ({ currentCategory, onChange }: CategorySelector
                 onChange(category);
               }
             }}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-              isSelected
-                ? `${colors.bg} ${colors.text} ring-2 ${colors.ring}`
-                : `${colors.bg} ${colors.text}`
+            className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${colors.bg} ${colors.text} ${colors.hover} ${
+              isSelected ? `ring-2 ${colors.ring}` : ''
             }`}
             role="radio"
             aria-checked={isSelected}

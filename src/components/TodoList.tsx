@@ -6,12 +6,14 @@ import { FiPlus, FiMic, FiMicOff } from "react-icons/fi";
 import { useTodo } from "@/context/todo-context";
 import { TodoItem } from "./TodoItem";
 import { TodoCategory } from "@/types";
+import { CategorySelector } from "./CategoryBadge";
+import { CategoryBadge } from "./CategoryBadge";
 
 // Simplified Web Speech API type declaration
 type SpeechRecognitionType = any;
 
 export const TodoList = () => {
-  const MAX_TODO_LENGTH = 100; // Character limit for todos
+  const MAX_TODO_LENGTH = 40; // Character limit for todos
   const { todos, addTodo, clearCompleted } = useTodo();
   const [newTodo, setNewTodo] = useState("");
   const [newTodoCategory, setNewTodoCategory] = useState<TodoCategory>("none");
@@ -132,6 +134,11 @@ export const TodoList = () => {
     }
   };
 
+  const handleCategoryChange = (category: TodoCategory) => {
+    setNewTodoCategory(category);
+    setIsAddingCategory(false);
+  };
+
   const charactersLeft = MAX_TODO_LENGTH - newTodo.length;
   const isNearLimit = charactersLeft <= 20;
   const isAtLimit = charactersLeft <= 0;
@@ -175,21 +182,30 @@ export const TodoList = () => {
         <div className="flex flex-col gap-3">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
             <div className="relative w-full mb-4 sm:mb-0">
-              <input
-                type="text"
-                value={newTodo}
-                onChange={handleInputChange}
-                placeholder="Add a new task..."
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm shadow-sm transition-colors dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 ${
-                  isAtLimit
-                    ? "border-red-500 dark:border-red-500"
-                    : isNearLimit
-                    ? "border-yellow-500 dark:border-yellow-500"
-                    : "border-gray-300 dark:border-gray-600"
-                }`}
-                aria-label="New todo input"
-                maxLength={MAX_TODO_LENGTH}
-              />
+              <div className="flex items-center relative">
+                <input
+                  type="text"
+                  value={newTodo}
+                  onChange={handleInputChange}
+                  placeholder="Add a new task..."
+                  className={`w-full rounded-lg border bg-white px-4 ${
+                    newTodoCategory !== 'none' ? 'pr-[5.5rem]' : 'pr-4'
+                  } py-3 text-sm shadow-sm transition-colors dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 ${
+                    isAtLimit
+                      ? "border-red-500 dark:border-red-500"
+                      : isNearLimit
+                      ? "border-yellow-500 dark:border-yellow-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                  aria-label="New todo input"
+                  maxLength={MAX_TODO_LENGTH}
+                />
+                {newTodoCategory !== 'none' && (
+                  <div className="absolute right-3 z-10 pointer-events-none">
+                    <CategoryBadge category={newTodoCategory} />
+                  </div>
+                )}
+              </div>
               <div className={`absolute bottom-[-1.5rem] sm:bottom-[-1.25rem] left-0 sm:right-2 sm:left-auto text-xs transition-colors ${
                 isAtLimit
                   ? "text-red-500"
@@ -229,7 +245,11 @@ export const TodoList = () => {
                 type="button"
                 onClick={() => setIsAddingCategory(!isAddingCategory)}
                 whileTap={{ scale: 0.95 }}
-                className="flex-shrink-0 flex h-10 sm:h-11 flex-1 sm:flex-auto items-center justify-center rounded-lg bg-blue-500 px-3 text-xs sm:text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
+                className={`flex-shrink-0 flex h-10 sm:h-11 items-center justify-center rounded-lg px-3 text-xs sm:text-sm font-medium shadow-sm transition-colors ${
+                  isAddingCategory
+                    ? "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
                 aria-label="Toggle category selection"
                 aria-expanded={isAddingCategory}
                 tabIndex={0}
@@ -277,50 +297,12 @@ export const TodoList = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 className="overflow-hidden"
-                role="radiogroup"
-                aria-label="Category selection"
               >
                 <div className="flex flex-wrap gap-2 rounded-lg bg-gray-50 p-2 dark:bg-gray-800">
-                  {(['none', 'work', 'personal', 'urgent'] as TodoCategory[]).map((category, index) => (
-                    <motion.button
-                      key={category}
-                      type="button"
-                      onClick={() => setNewTodoCategory(category)}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        delay: index * 0.05,
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 15
-                      }}
-                      whileHover={{ scale: 1.08 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                        newTodoCategory === category
-                          ? category === 'none'
-                            ? 'bg-gray-200 text-gray-600 ring-2 ring-gray-400 dark:bg-gray-700 dark:text-gray-300 dark:ring-gray-500'
-                            : category === 'work'
-                            ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-400 dark:bg-blue-900/70 dark:text-blue-300 dark:ring-blue-500'
-                            : category === 'personal'
-                            ? 'bg-purple-100 text-purple-700 ring-2 ring-purple-400 dark:bg-purple-900/70 dark:text-purple-300 dark:ring-purple-500'
-                            : 'bg-red-100 text-red-700 ring-2 ring-red-400 dark:bg-red-900/70 dark:text-red-300 dark:ring-red-500'
-                          : category === 'none'
-                          ? 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
-                          : category === 'work'
-                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/70 dark:text-blue-300'
-                          : category === 'personal'
-                          ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/70 dark:text-purple-300'
-                          : 'bg-red-100 text-red-700 dark:bg-red-900/70 dark:text-red-300'
-                      }`}
-                      aria-label={category === 'none' ? 'No Category' : category}
-                      aria-checked={newTodoCategory === category}
-                      role="radio"
-                      tabIndex={0}
-                    >
-                      {category === 'none' ? 'No Category' : category.charAt(0).toUpperCase() + category.slice(1)}
-                    </motion.button>
-                  ))}
+                  <CategorySelector 
+                    currentCategory={newTodoCategory}
+                    onChange={handleCategoryChange}
+                  />
                 </div>
               </motion.div>
             )}

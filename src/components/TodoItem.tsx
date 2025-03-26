@@ -69,7 +69,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="group flex items-center justify-between rounded-lg border border-gray-200 bg-white p-2 sm:p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+      className="group relative flex items-center justify-between rounded-lg border border-gray-200 bg-white p-2 sm:p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
         <div className="flex-shrink-0">
@@ -90,9 +90,9 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
           </motion.button>
         </div>
 
-        <div className="flex flex-col gap-1 overflow-hidden">
+        <div className="flex flex-1 items-center gap-2">
           {isEditing ? (
-            <div className="relative">
+            <div className="relative flex-1">
               <input
                 ref={inputRef}
                 type="text"
@@ -128,14 +128,14 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
           )}
           
           {!isEditing && todo.category !== 'none' && (
-            <div>
+            <div className="flex-shrink-0">
               <CategoryBadge category={todo.category} />
             </div>
           )}
         </div>
       </div>
 
-      <div className="flex items-center gap-0.5 sm:gap-1 opacity-60 transition-opacity duration-200 group-hover:opacity-100 sm:opacity-100">
+      <div className="flex items-center gap-1 sm:gap-2">
         <AnimatePresence mode="wait">
           {showCategorySelector ? (
             <button
@@ -159,7 +159,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
             </button>
           )}
         </AnimatePresence>
-      
+
         <AnimatePresence mode="wait">
           {isEditing ? (
             <button
@@ -183,7 +183,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
             </button>
           )}
         </AnimatePresence>
-        
+
         <button
           onClick={() => deleteTodo(todo.id)}
           className="rounded-full p-1 sm:p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-500 dark:text-gray-400 dark:hover:bg-red-900/30 dark:hover:text-red-400"
@@ -193,17 +193,20 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
           <FiTrash2 className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
         </button>
       </div>
-      
+
       <AnimatePresence>
         {showCategorySelector && (
-          <div 
-            className="absolute left-0 right-0 top-full z-10 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 shadow-md dark:border-gray-700 dark:bg-gray-800"
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-10 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 shadow-md dark:border-gray-700 dark:bg-gray-800"
           >
             <CategorySelector 
               currentCategory={todo.category} 
               onChange={handleCategoryChange} 
             />
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.li>
