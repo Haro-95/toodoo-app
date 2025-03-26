@@ -165,22 +165,22 @@ export const TodoList = () => {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border border-gray-200 bg-white/80 p-6 shadow-xl backdrop-blur-lg backdrop-filter transition-all hover:shadow-2xl dark:border-gray-700 dark:bg-gray-800/80 dark:hover:border-gray-600"
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border border-gray-200 bg-white p-4 sm:p-6 shadow-md dark:border-gray-700 dark:bg-gray-800"
       role="region"
       aria-label="Todo list manager"
     >
       {/* Add todo form */}
       <form onSubmit={handleAddTodo} className="mb-6">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <div className="relative w-full">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+            <div className="relative w-full mb-4 sm:mb-0">
               <input
                 type="text"
                 value={newTodo}
                 onChange={handleInputChange}
                 placeholder="Add a new task..."
-                className={`w-full rounded-lg border bg-white/90 px-4 py-3 text-sm shadow-inner transition-all dark:bg-gray-700/90 dark:text-white dark:placeholder-gray-400 ${
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm shadow-sm transition-colors dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 ${
                   isAtLimit
                     ? "border-red-500 dark:border-red-500"
                     : isNearLimit
@@ -190,7 +190,7 @@ export const TodoList = () => {
                 aria-label="New todo input"
                 maxLength={MAX_TODO_LENGTH}
               />
-              <div className={`absolute bottom-[-1.25rem] right-2 text-xs transition-all ${
+              <div className={`absolute bottom-[-1.5rem] sm:bottom-[-1.25rem] left-0 sm:right-2 sm:left-auto text-xs transition-colors ${
                 isAtLimit
                   ? "text-red-500"
                   : isNearLimit
@@ -204,69 +204,51 @@ export const TodoList = () => {
               </div>
             </div>
             
-            {/* Voice input button */}
-            {isSpeechSupported && (
+            <div className="flex w-full sm:w-auto gap-2 justify-between sm:justify-start">
+              {/* Voice input button */}
+              {isSpeechSupported && (
+                <motion.button
+                  type="button"
+                  onClick={toggleListening}
+                  whileTap={{ scale: 0.95 }}
+                  className={`flex-shrink-0 flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg shadow-sm transition-colors ${
+                    isListening 
+                      ? "animate-pulse bg-red-500 text-white" 
+                      : "bg-blue-500 text-white hover:bg-blue-600"
+                  }`}
+                  aria-label={isListening ? "Stop listening" : "Start voice command"}
+                  aria-pressed={isListening}
+                  tabIndex={0}
+                >
+                  {isListening ? <FiMicOff className="h-5 w-5" /> : <FiMic className="h-5 w-5" />}
+                </motion.button>
+              )}
+              
+              {/* Category button */}
               <motion.button
                 type="button"
-                onClick={toggleListening}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 4px 12px rgba(79, 70, 229, 0.3)"
-                }}
+                onClick={() => setIsAddingCategory(!isAddingCategory)}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className={`flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg shadow-md transition-all ${
-                  isListening 
-                    ? "animate-pulse bg-gradient-to-r from-red-500 to-red-600 text-white" 
-                    : "bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600"
-                }`}
-                aria-label={isListening ? "Stop listening" : "Start voice command"}
-                aria-pressed={isListening}
+                className="flex-shrink-0 flex h-10 sm:h-11 flex-1 sm:flex-auto items-center justify-center rounded-lg bg-blue-500 px-3 text-xs sm:text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-600"
+                aria-label="Toggle category selection"
+                aria-expanded={isAddingCategory}
                 tabIndex={0}
               >
-                {isListening ? <FiMicOff className="h-5 w-5" /> : <FiMic className="h-5 w-5" />}
+                {isAddingCategory ? "Cancel" : "Category"}
               </motion.button>
-            )}
-            
-            {/* Category button */}
-            <motion.button
-              type="button"
-              onClick={() => setIsAddingCategory(!isAddingCategory)}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 4px 12px rgba(79, 70, 229, 0.3)" 
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex-shrink-0 flex h-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 px-3 text-sm font-medium text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600"
-              aria-label="Toggle category selection"
-              aria-expanded={isAddingCategory}
-              tabIndex={0}
-            >
-              {isAddingCategory ? "Cancel" : "Category"}
-            </motion.button>
-            
-            {/* Add button */}
-            <motion.button
-              type="submit"
-              disabled={!newTodo.trim() || isAtLimit}
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 4px 12px rgba(79, 70, 229, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 p-2 text-white shadow-md transition-all hover:from-blue-600 hover:to-indigo-600 disabled:opacity-50"
-              aria-label="Add todo"
-              tabIndex={0}
-            >
-              <motion.div
-                whileHover={{ rotate: 90 }}
-                transition={{ duration: 0.2 }}
+              
+              {/* Add button */}
+              <motion.button
+                type="submit"
+                disabled={!newTodo.trim() || isAtLimit}
+                whileTap={{ scale: 0.95 }}
+                className="flex-shrink-0 flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg bg-blue-500 p-2 text-white shadow-sm transition-colors hover:bg-blue-600 disabled:opacity-50"
+                aria-label="Add todo"
+                tabIndex={0}
               >
-                <FiPlus className="h-6 w-6" />
-              </motion.div>
-            </motion.button>
+                <FiPlus className="h-5 sm:h-6 w-5 sm:w-6" />
+              </motion.button>
+            </div>
           </div>
           
           {/* Voice listening indicator */}
@@ -347,28 +329,16 @@ export const TodoList = () => {
       </form>
 
       {/* Filter tabs */}
-      <div className="mb-6 flex justify-center">
-        <div className="inline-flex rounded-lg bg-gray-100/80 p-1.5 shadow-inner dark:bg-gray-700/80" role="tablist" aria-label="Todo filters">
+      <div className="mb-5 sm:mb-6 flex justify-center">
+        <div className="inline-flex rounded-lg bg-gray-100 p-1 sm:p-1.5 shadow-sm dark:bg-gray-700" role="tablist" aria-label="Todo filters">
           {["all", "active", "completed"].map((filterType, index) => (
             <motion.button
               key={filterType}
               onClick={() => setFilter(filterType as any)}
-              whileHover={{ 
-                backgroundColor: filter === filterType ? "" : "rgba(229, 231, 235, 0.5)",
-                color: filter === filterType ? "" : "#1F2937"
-              }}
               whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: 0.2 + index * 0.1,
-                type: "spring", 
-                stiffness: 300, 
-                damping: 24
-              }}
-              className={`rounded-md px-4 py-1.5 text-sm font-medium transition-all ${
+              className={`rounded-md px-2 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium transition-colors ${
                 filter === filterType
-                  ? "bg-white text-gray-800 shadow dark:bg-gray-600 dark:text-white"
+                  ? "bg-white text-gray-800 shadow-sm dark:bg-gray-600 dark:text-white"
                   : "text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
               }`}
               role="tab"
@@ -388,7 +358,7 @@ export const TodoList = () => {
       {filteredAndSortedTodos.length > 0 ? (
         <>
           <motion.ul 
-            className="mb-6 space-y-3"
+            className="mb-4 sm:mb-6 space-y-2 sm:space-y-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             layout="position"
@@ -396,7 +366,7 @@ export const TodoList = () => {
             aria-label={`${filter} todos`}
             id={`${filter}-todos`}
           >
-            <AnimatePresence initial={false} mode="popLayout">
+            <AnimatePresence initial={false}>
               {filteredAndSortedTodos.map((todo) => (
                 <TodoItem 
                   key={todo.id} 
@@ -409,21 +379,14 @@ export const TodoList = () => {
           {/* Clear completed button */}
           {completedCount > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 5 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="flex justify-end"
             >
               <motion.button
                 onClick={handleClearCompleted}
-                whileHover={{ 
-                  scale: 1.05, 
-                  backgroundColor: "#E5E7EB", 
-                  color: "#4B5563" 
-                }}
                 whileTap={{ scale: 0.95 }}
-                className="rounded-md bg-gray-100 px-3 py-1 text-xs text-gray-500 transition-all hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-gray-300"
+                className="rounded-md bg-gray-100 px-3 py-1 text-xs text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-gray-300"
                 aria-label="Clear all completed todos"
                 tabIndex={0}
               >
@@ -434,18 +397,14 @@ export const TodoList = () => {
         </>
       ) : (
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="flex h-32 items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800/50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex h-24 sm:h-32 items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-800"
           role="status"
           aria-label="Empty todo list"
         >
           <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-sm text-gray-500 dark:text-gray-400"
+            className="text-xs sm:text-sm text-gray-500 px-2 text-center dark:text-gray-400"
           >
             No todos yet. Add one above!
           </motion.p>

@@ -66,61 +66,33 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
   return (
     <motion.li
       layout
-      initial={{ opacity: 0, y: 15, scale: 0.98 }}
-      animate={{ 
-        opacity: 1, 
-        y: 0, 
-        scale: 1,
-        transition: { type: "spring", stiffness: 350, damping: 25 }
-      }}
-      exit={{ 
-        opacity: 0, 
-        y: -15, 
-        scale: 0.96,
-        transition: { duration: 0.2 } 
-      }}
-      whileHover={{ 
-        y: -2,
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        transition: { duration: 0.2 }
-      }}
-      className="group flex items-center justify-between rounded-lg border border-gray-200 bg-white/90 p-3 shadow-sm backdrop-blur-sm transition-all hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800/90 dark:hover:border-gray-600"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="group flex items-center justify-between rounded-lg border border-gray-200 bg-white p-2 sm:p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
-      <div className="flex items-center gap-3 overflow-hidden">
+      <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
         <div className="flex-shrink-0">
           <motion.button
             onClick={() => toggleTodo(todo.id)}
-            whileTap={{ scale: 0.8 }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border transition-all ${
+            whileTap={{ scale: 0.9 }}
+            className={`flex h-4 sm:h-5 w-4 sm:w-5 flex-shrink-0 items-center justify-center rounded-full border transition-colors ${
               todo.completed
-                ? "border-green-500 bg-gradient-to-br from-green-400 to-green-500 text-white shadow-sm"
-                : "border-gray-300 bg-white hover:border-blue-400 hover:bg-blue-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-400 dark:hover:bg-blue-900/30"
+                ? "border-green-500 bg-green-500 text-white"
+                : "border-gray-300 bg-white hover:border-blue-400 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-400"
             }`}
             aria-label={todo.completed ? "Mark as incomplete" : "Mark as complete"}
             tabIndex={0}
           >
             {todo.completed && (
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <FiCheck className="h-3 w-3" />
-              </motion.div>
+              <FiCheck className="h-2.5 sm:h-3 w-2.5 sm:w-3" />
             )}
           </motion.button>
         </div>
 
         <div className="flex flex-col gap-1 overflow-hidden">
           {isEditing ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="relative"
-            >
+            <div className="relative">
               <input
                 ref={inputRef}
                 type="text"
@@ -128,12 +100,12 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
                 onChange={handleInputChange}
                 onBlur={handleSave}
                 onKeyDown={handleKeyDown}
-                className={`w-full rounded-md bg-transparent py-1 dark:text-white ${
+                className={`w-full rounded-md bg-transparent py-1 text-xs sm:text-sm dark:text-white ${
                   isAtLimit ? "border-red-500 text-red-600" : isNearLimit ? "text-yellow-600" : ""
                 }`}
                 autoFocus
               />
-              <div className={`absolute bottom-[-1.25rem] right-2 text-xs transition-all ${
+              <div className={`absolute bottom-[-1.25rem] right-0 text-xs transition-colors ${
                 isAtLimit
                   ? "text-red-500"
                   : isNearLimit
@@ -142,132 +114,96 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
               }`}>
                 {charactersLeft} characters left
               </div>
-            </motion.div>
+            </div>
           ) : (
-            <motion.span
-              layout
-              className={`truncate text-sm font-medium transition-all ${
+            <span
+              className={`truncate text-xs sm:text-sm font-medium ${
                 todo.completed
                   ? "text-gray-500 line-through dark:text-gray-400"
                   : "text-gray-800 dark:text-gray-200"
               }`}
             >
               {todo.title}
-            </motion.span>
+            </span>
           )}
           
           {!isEditing && todo.category !== 'none' && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-            >
+            <div>
               <CategoryBadge category={todo.category} />
-            </motion.div>
+            </div>
           )}
         </div>
       </div>
 
-      <div className="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:opacity-100">
+      <div className="flex items-center gap-0.5 sm:gap-1 opacity-60 transition-opacity duration-200 group-hover:opacity-100 sm:opacity-100">
         <AnimatePresence mode="wait">
           {showCategorySelector ? (
-            <motion.button
+            <button
               key="cancel-category"
               onClick={() => setShowCategorySelector(false)}
-              whileHover={{ scale: 1.15, rotate: 10 }}
-              whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0, rotate: -10 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 10 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+              className="rounded-full p-1 sm:p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
               aria-label="Cancel category selection"
               tabIndex={0}
             >
-              <FiTag className="h-3.5 w-3.5" />
-            </motion.button>
+              <FiTag className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+            </button>
           ) : (
-            <motion.button
+            <button
               key="show-category"
               onClick={() => setShowCategorySelector(true)}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+              className="rounded-full p-1 sm:p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
               aria-label="Change category"
               tabIndex={0}
             >
-              <FiTag className="h-3.5 w-3.5" />
-            </motion.button>
+              <FiTag className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+            </button>
           )}
         </AnimatePresence>
       
         <AnimatePresence mode="wait">
           {isEditing ? (
-            <motion.button
+            <button
               key="save"
               onClick={handleSave}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-green-500 hover:bg-green-50 hover:text-green-600 dark:text-green-400 dark:hover:bg-green-900/30 dark:hover:text-green-300"
+              className="rounded-full p-1 sm:p-1.5 text-green-500 hover:bg-green-50 hover:text-green-600 dark:text-green-400 dark:hover:bg-green-900/30 dark:hover:text-green-300"
               aria-label="Save edit"
               tabIndex={0}
             >
-              <FiCheckCircle className="h-3.5 w-3.5" />
-            </motion.button>
+              <FiCheckCircle className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+            </button>
           ) : (
-            <motion.button
+            <button
               key="edit"
               onClick={handleEdit}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="rounded-full p-1.5 text-gray-500 hover:bg-blue-50 hover:text-blue-500 dark:text-gray-400 dark:hover:bg-blue-900/30 dark:hover:text-blue-400"
+              className="rounded-full p-1 sm:p-1.5 text-gray-500 hover:bg-blue-50 hover:text-blue-500 dark:text-gray-400 dark:hover:bg-blue-900/30 dark:hover:text-blue-400"
               aria-label="Edit todo"
               tabIndex={0}
             >
-              <FiEdit2 className="h-3.5 w-3.5" />
-            </motion.button>
+              <FiEdit2 className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+            </button>
           )}
         </AnimatePresence>
         
-        <motion.button
+        <button
           onClick={() => deleteTodo(todo.id)}
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          className="rounded-full p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-500 dark:text-gray-400 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+          className="rounded-full p-1 sm:p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-500 dark:text-gray-400 dark:hover:bg-red-900/30 dark:hover:text-red-400"
           aria-label="Delete todo"
           tabIndex={0}
         >
-          <FiTrash2 className="h-3.5 w-3.5" />
-        </motion.button>
+          <FiTrash2 className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+        </button>
       </div>
       
       <AnimatePresence>
         {showCategorySelector && (
-          <motion.div 
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute left-0 right-0 top-full z-10 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+          <div 
+            className="absolute left-0 right-0 top-full z-10 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 shadow-md dark:border-gray-700 dark:bg-gray-800"
           >
             <CategorySelector 
               currentCategory={todo.category} 
               onChange={handleCategoryChange} 
             />
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </motion.li>

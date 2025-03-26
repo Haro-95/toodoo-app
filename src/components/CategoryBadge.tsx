@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { ComponentProps } from "react";
 import { TodoCategory } from "@/types";
 
 type CategoryBadgeProps = {
@@ -17,19 +17,19 @@ const categoryColors = {
     ring: "ring-gray-400 dark:ring-gray-500"
   },
   work: {
-    bg: "bg-blue-100 dark:bg-blue-900/70",
+    bg: "bg-blue-100 dark:bg-blue-900",
     text: "text-blue-700 dark:text-blue-300",
     hover: "hover:bg-blue-200 dark:hover:bg-blue-800",
     ring: "ring-blue-400 dark:ring-blue-500"
   },
   personal: {
-    bg: "bg-purple-100 dark:bg-purple-900/70",
+    bg: "bg-purple-100 dark:bg-purple-900",
     text: "text-purple-700 dark:text-purple-300",
     hover: "hover:bg-purple-200 dark:hover:bg-purple-800",
     ring: "ring-purple-400 dark:ring-purple-500"
   },
   urgent: {
-    bg: "bg-red-100 dark:bg-red-900/70",
+    bg: "bg-red-100 dark:bg-red-900",
     text: "text-red-700 dark:text-red-300",
     hover: "hover:bg-red-200 dark:hover:bg-red-800",
     ring: "ring-red-400 dark:ring-red-500"
@@ -39,33 +39,30 @@ const categoryColors = {
 export const CategoryBadge = ({ category, onClick }: CategoryBadgeProps) => {
   const colors = categoryColors[category];
 
-  // Using motion.button when clickable for better keyboard accessibility
-  const Component = onClick ? motion.button : motion.span;
-  const interactiveProps = onClick ? {
-    type: "button" as "button",
-    tabIndex: 0,
-    role: "button",
-    "aria-label": `Category: ${category}`,
-    onKeyDown: (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        onClick();
-      }
-    },
-    className: `inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text} cursor-pointer ${colors.hover}`
-  } : {
-    className: `inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`
-  };
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        tabIndex={0}
+        aria-label={`Category: ${category}`}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text} cursor-pointer ${colors.hover}`}
+      >
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+      </button>
+    );
+  }
 
   return (
-    <Component
-      whileHover={onClick ? { y: -1, scale: 1.05 } : {}}
-      whileTap={onClick ? { y: 0, scale: 0.95 } : {}}
-      onClick={onClick}
-      {...interactiveProps}
-    >
+    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`}>
       {category.charAt(0).toUpperCase() + category.slice(1)}
-    </Component>
+    </span>
   );
 };
 
@@ -77,13 +74,13 @@ type CategorySelectorProps = {
 export const CategorySelector = ({ currentCategory, onChange }: CategorySelectorProps) => {
   return (
     <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Select category">
-      {(['none', 'work', 'personal', 'urgent'] as TodoCategory[]).map((category, index) => {
+      {(['none', 'work', 'personal', 'urgent'] as TodoCategory[]).map((category) => {
         const isSelected = currentCategory === category;
         const colors = categoryColors[category];
         const categoryDisplay = category === 'none' ? 'No Category' : category.charAt(0).toUpperCase() + category.slice(1);
         
         return (
-          <motion.button
+          <button
             key={category}
             type="button"
             onClick={() => onChange(category)}
@@ -93,17 +90,7 @@ export const CategorySelector = ({ currentCategory, onChange }: CategorySelector
                 onChange(category);
               }
             }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ 
-              delay: index * 0.05,
-              type: "spring",
-              stiffness: 400,
-              damping: 15
-            }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               isSelected
                 ? `${colors.bg} ${colors.text} ring-2 ${colors.ring}`
                 : `${colors.bg} ${colors.text}`
@@ -114,7 +101,7 @@ export const CategorySelector = ({ currentCategory, onChange }: CategorySelector
             tabIndex={0}
           >
             {categoryDisplay}
-          </motion.button>
+          </button>
         );
       })}
     </div>
