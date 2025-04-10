@@ -100,7 +100,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
                 onChange={handleInputChange}
                 onBlur={handleSave}
                 onKeyDown={handleKeyDown}
-                className={`w-full rounded-md bg-transparent py-1 text-xs sm:text-sm dark:text-white ${
+                className={`w-full rounded-md bg-transparent py-1 text-xs sm:text-sm text-gray-900 dark:text-white ${
                   isAtLimit ? "border-red-500 text-red-600" : isNearLimit ? "text-yellow-600" : ""
                 }`}
                 autoFocus

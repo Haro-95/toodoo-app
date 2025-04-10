@@ -74,7 +74,7 @@ const WelcomeScreen: React.FC = () => {
                       setError('');
                     }}
                     placeholder="Enter your name"
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     autoFocus
                   />
                   {error && (

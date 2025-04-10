@@ -188,7 +188,7 @@ export const TodoList = () => {
                   value={newTodo}
                   onChange={handleInputChange}
                   placeholder="Add a new task..."
-                  className={`w-full rounded-lg border bg-white px-4 ${
+                  className={`w-full rounded-lg border bg-white px-4 text-gray-900 ${
                     newTodoCategory !== 'none' ? 'pr-[5.5rem]' : 'pr-4'
                   } py-3 text-sm shadow-sm transition-colors dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 ${
                     isAtLimit
