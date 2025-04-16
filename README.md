@@ -44,43 +44,23 @@ A modern, feature-rich todo application built with Next.js, Tailwind CSS, and Ty
 ### Prerequisites
 
 - Node.js 18.x or later
-- npm or yarn
+- npm
 
 ### Installation
 
-1. Clone or download this repository
+1. Clone the repository
+   ```bash
+   git clone https://github.com/Haro-95/toodoo-app.git
+   ```
    
 2. Install dependencies
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. Run the development server
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application
-
-## Project Structure
-
-```
-toodoo/
-├── public/          # Static assets
-├── src/
-│   ├── app/         # Next.js app router
-│   ├── components/  # React components
-│   ├── context/     # React context providers (todo-context.tsx, user-context.tsx)
-│   ├── hooks/       # Custom React hooks
-│   ├── styles/      # Global styles
-│   ├── types/       # TypeScript type definitions
-│   └── utils/       # Utility functions
-├── .gitignore
-├── package.json
-├── README.md
-└── tsconfig.json
-```
